@@ -1,0 +1,35 @@
+#include <Adafruit_Sensor.h>
+#include <DHT.h>
+
+#define DHTPIN 2          // El pin al que está conectado el sensor DHT
+#define DHTTYPE DHT22     // Tipo de sensor DHT (DHT11, DHT21, DHT22)
+
+DHT dht(DHTPIN, DHTTYPE);
+
+void setup() {
+  Serial.begin(9600);
+  Serial.println("Saludos - Mi primer programa Arduino");
+  dht.begin();
+}
+
+void loop() {
+  delay(2000);  // Espera 2 segundos entre lecturas
+
+  float temperaturaCelsius = dht.readTemperature(); // Lee la temperatura en grados Celsius
+  float temperaturaKelvin = temperaturaCelsius + 273.15; // Convierte a Kelvin
+  float temperaturaFahrenheit = (temperaturaCelsius * 9 / 5) + 32; // Convierte a Fahrenheit
+
+  Serial.print("Temperatura en Celsius: ");
+  Serial.print(temperaturaCelsius);
+  Serial.println(" °C");
+
+  Serial.print("Temperatura en Kelvin: ");
+  Serial.print(temperaturaKelvin);
+  Serial.println(" K");
+
+  Serial.print("Temperatura en Fahrenheit: ");
+  Serial.print(temperaturaFahrenheit);
+  Serial.println(" °F");
+
+  Serial.println(); // Imprime una línea en blanco para separar las lecturas
+}
